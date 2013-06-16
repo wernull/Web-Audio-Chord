@@ -1,1 +1,1 @@
-$(function(){var e="",t=39,n=0;for(var r=0;r<1e4;r++){e+='<div class="checker'+n+'"></div>';n<t?n++:n=0}$(".checker-bg").empty().append(e)});
+function setBgCheckerColors(e,t,n,r){for(var i=0;i<=r;i++){var s=e+Math.floor(i*.5);$(".checker"+i).css("background-color","hsla("+s+", "+t+"%, "+n+"%, 1)")}}$(function(){var e="",t=40,n=1;for(var r=0;r<1e4;r++){e+='<div class="checker'+n+'"></div>';n<t?n++:n=1}$(".checker-bg").empty().append(e);setBgCheckerColors(203,100,50,t)});
