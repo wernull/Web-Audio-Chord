@@ -1,0 +1,1 @@
+$(function(){var e="",t=39,n=0;for(var r=0;r<1e4;r++){e+='<div class="checker'+n+'"></div>';n<t?n++:n=0}$(".checker-bg").empty().append(e)});
