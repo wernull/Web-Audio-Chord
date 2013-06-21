@@ -7,8 +7,39 @@
   width: 100%;
   height: 100%;
   background-color: #000;
-  /* http://lea.verou.me/css3patterns/#argyle */
+  /* Background pattern from: http://lea.verou.me/css3patterns/#argyle */
 
   background-image: repeating-linear-gradient(120deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1) 1px, transparent 1px, transparent 60px), repeating-linear-gradient(60deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1) 1px, transparent 1px, transparent 60px), linear-gradient(60deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1)), linear-gradient(120deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1));
   background-size: 70px 120px;
+}
+.dial {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5em;
+  height: 5em;
+  margin: -2.5em 0 0 -2.5em;
+  background-color: #003353;
+  border-radius: 50%;
+}
+.pointer-lg {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin: -2.5em 0 0 -0.4em;
+  border-left: 0.4em solid transparent;
+  border-right: 0.4em solid transparent;
+  border-bottom: 2.5em solid #e60000;
+}
+.pointer-lg:before {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 0;
+  margin: 2.5em 0 0 -0.4em;
+  border-left: 0.4em solid transparent;
+  border-right: 0.4em solid transparent;
+  border-top: 2.5em solid #008de6;
 }

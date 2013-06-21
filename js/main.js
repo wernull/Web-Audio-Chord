@@ -7,6 +7,5 @@ function setBgCheckerColors(h, s, l){
 $(function(){
 	//render background
 	setBgCheckerColors(203, 100, 50);
-	
 });
 
