@@ -28,29 +28,43 @@
 	border-radius: 50%;
 }
 
-@lg-width: .4em;
+@needle-width: .4em;
+@needle-length: 2.5em;
+@needle-sm-size: .6;
 
-.pointer-lg {
+.pointer-x,
+.pointer-y {
 	position: relative;
 	top: 50%;
 	left: 50%;
 	width: 0;
 	height: 0;
-	margin: -2.5em 0 0 -@lg-width;
-	border-left: @lg-width solid transparent;
-	border-right: @lg-width solid transparent;
-	border-bottom: 2.5em solid #e60000; 
+	margin: -@needle-length 0 0 -@needle-width;
+	border-left: @needle-width solid transparent;
+	border-right: @needle-width solid transparent;
+	border-bottom: @needle-length solid hsla(0, 70%, 50%, .7); 
 }
 
-.pointer-lg:before {
+.pointer-y {
+	margin-top: -@needle-length * @needle-sm-size;
+	border-bottom-width: @needle-length * @needle-sm-size;
+}
+
+.pointer-x:before,
+.pointer-y:before {
 	position: absolute;
 	content: "";
 	width: 0;
 	height: 0;
-	margin: 2.5em 0 0 -@lg-width;
-	border-left: @lg-width solid transparent;
-	border-right: @lg-width solid transparent;
-	border-top: 2.5em solid #008de6;
+	margin: @needle-length 0 0 -@needle-width;
+	border-left: @needle-width solid transparent;
+	border-right: @needle-width solid transparent;
+	border-top: @needle-length solid hsla(203, 100%, 50%, .7);
+}
+
+.pointer-y:before {
+	margin-top: @needle-length * @needle-sm-size;
+	border-top-width: @needle-length * @needle-sm-size;
 }
 
 

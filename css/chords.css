@@ -22,7 +22,8 @@
   background-color: #003353;
   border-radius: 50%;
 }
-.pointer-lg {
+.pointer-x,
+.pointer-y {
   position: relative;
   top: 50%;
   left: 50%;
@@ -31,9 +32,14 @@
   margin: -2.5em 0 0 -0.4em;
   border-left: 0.4em solid transparent;
   border-right: 0.4em solid transparent;
-  border-bottom: 2.5em solid #e60000;
+  border-bottom: 2.5em solid rgba(217, 38, 38, 0.7);
 }
-.pointer-lg:before {
+.pointer-y {
+  margin-top: -1.5em;
+  border-bottom-width: 1.5em;
+}
+.pointer-x:before,
+.pointer-y:before {
   position: absolute;
   content: "";
   width: 0;
@@ -41,5 +47,9 @@
   margin: 2.5em 0 0 -0.4em;
   border-left: 0.4em solid transparent;
   border-right: 0.4em solid transparent;
-  border-top: 2.5em solid #008de6;
+  border-top: 2.5em solid rgba(0, 157, 255, 0.7);
+}
+.pointer-y:before {
+  margin-top: 1.5em;
+  border-top-width: 1.5em;
 }
