@@ -1,13 +1,14 @@
 var app = {
 	dial: $('.dial'),
 	site: $('html'),
+	bg: $('.color-bg'),
 	init: function(){
 		//render background
 		app.setBgCheckerColors(203, 100, 50);
 		app.setMoveEvents();
 	},
 	setBgCheckerColors: function(h, s, l){
-		$('.color-bg').css('background-color', 'hsla('+h+', '+s+'%, '+l+'%, 1)');	
+		app.bg.css('background-color', 'hsla('+h+', '+s+'%, '+l+'%, 1)');	
 	},
 	setMoveEvents: function(){
 		app.site.on('mousedown', function(e){app.enableMovement(e)});
@@ -21,7 +22,19 @@ var app = {
 		app.site.off('mousemove');
 	},
 	onMove: function(e){
-		TweenMax.to(app.dial, .1, {left: e.pageX, top: e.pageY});
+		var leftTo = e.pageX > app.dial.width()/2 ? e.pageX : app.dial.width()/2;
+		var topTo = e.pageY > app.dial.height()/2 ? e.pageY : app.dial.height()/2;
+
+		if(leftTo > app.site.width() - app.dial.width()/2){
+			leftTo = app.site.width() - app.dial.width()/2;
+		}
+		if(topTo > app.bg.height() - app.dial.height()/2){
+			topTo = app.bg.height() - app.dial.height()/2;
+		}
+			
+		
+
+		TweenMax.to(app.dial, .1, {left: leftTo, top: topTo});
 
 
 
