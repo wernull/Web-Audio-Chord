@@ -6,11 +6,13 @@
   position: absolute;
   width: 100%;
   height: 100%;
+  overflow: hidden;
   background-color: #000;
   /* Background pattern from: http://lea.verou.me/css3patterns/#argyle */
 
   background-image: repeating-linear-gradient(120deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1) 1px, transparent 1px, transparent 60px), repeating-linear-gradient(60deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1) 1px, transparent 1px, transparent 60px), linear-gradient(60deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1)), linear-gradient(120deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1));
   background-size: 70px 120px;
+  cursor: pointer;
 }
 .dial {
   position: absolute;
@@ -21,6 +23,7 @@
   margin: -2.5em 0 0 -2.5em;
   background-color: #003353;
   border-radius: 50%;
+  cursor: move;
 }
 .pointer-x,
 .pointer-y {
@@ -33,6 +36,7 @@
   border-left: 0.4em solid transparent;
   border-right: 0.4em solid transparent;
   border-bottom: 2.5em solid rgba(217, 38, 38, 0.7);
+  pointer-events: none;
 }
 .pointer-y {
   margin-top: -1.5em;
