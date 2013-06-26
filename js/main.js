@@ -6,7 +6,7 @@ app = {
 
 	init: function(){
 		//render background
-		app.setBgCheckerColors(203, 100, 50);
+		app.setBgCheckerColors(203, 50, 50);
 
 		//render dial
 		app.addNewDial();
@@ -33,20 +33,28 @@ app = {
 	},
 
 	enableMovement: function(e){
-		TweenMax.to(app.dial, .2, {left: e.pageX, top: e.pageY});
 		app.site.on('mousemove', function(e){app.onMove(e)});
 	},
 
 	disableMovement: function(e){
+		app.currentMovingDial = false;
 		app.site.off('mousemove');
 	},
 
 	onMove: function(e){
-		//assume dial width and height are equal
+		//check for dials under event, new dials can be added here
+		var hitDial = $(e.target);
+		if(hitDial.hasClass("dial") || app.currentMovingDial){
+			app.currentMovingDial = true;
+			app.updateXY(e.pageX, e.pageY);
+		}
+	},
 
+	updateXY: function(epX, epY){
+		//assume dial width and height are equal
 		//keep dial within bounds of viewport
-		var leftTo = e.pageX > app.halfDial ? e.pageX : app.halfDial;
-		var topTo = e.pageY > app.halfDial ? e.pageY : app.halfDial;
+		var leftTo = epX > app.halfDial ? epX : app.halfDial;
+		var topTo = epY > app.halfDial ? epY : app.halfDial;
 		if(leftTo > app.site.width() - app.halfDial){
 			leftTo = app.site.width() - app.halfDial;
 		}
@@ -54,18 +62,27 @@ app = {
 			topTo = app.bg.height() - app.halfDial;
 		}
 
+		TweenMax.to(app.dial, .1, {left: leftTo, top: topTo});
+
 		//find percentage for x and y values of dial
 		var xPercent = app.dial.offset().left / (app.site.width() - app.halfDial*2);
 		var yPercent = app.dial.offset().top / (app.bg.height() - app.halfDial*2);
 
+		app.setDialHands(xPercent, yPercent);
+		app.setBgColorsFromXY(xPercent, yPercent);
+	},
+
+	setDialHands: function(xP, yP){
 		//tween dial and hands. Hands 0-100% are 20-340
-		var rotX = xPercent * 320 - 160;
-		var rotY = yPercent * 320 - 160;
-		TweenMax.to(app.dial, .1, {left: leftTo, top: topTo});
+		var rotX = xP * 320 - 160;
+		var rotY = yP * 320 - 160;
 		TweenMax.to($('.pointer-x'), 1, {rotation:rotX, transformOrigin:"47% bottom", ease:Back.easeOut});
 		TweenMax.to($('.pointer-y'), 1, {rotation:rotY, transformOrigin:"47% bottom", ease:Back.easeOut});
-	}
+	},
 
+	setBgColorsFromXY: function(xP, yP){
+		app.setBgCheckerColors(353-300*xP, 100-yP*100, 50);
+	}
 
 }
 
