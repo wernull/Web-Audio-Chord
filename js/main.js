@@ -6,7 +6,7 @@ app = {
 
 	init: function(){
 		//render background
-		app.setBgCheckerColors(203, 50, 50);
+		app.setBgColor(203, 50, 50);
 
 		//render dial
 		app.addNewDial();
@@ -14,6 +14,8 @@ app = {
 
 		//start listeners
 		app.setMoveEvents();
+
+		app.initAudio();
 	},
 
 	addNewDial: function(startX, startY){
@@ -23,7 +25,7 @@ app = {
 		app.site.append(newDial);
 	},
 
-	setBgCheckerColors: function(h, s, l){
+	setBgColor: function(h, s, l){
 		app.bg.css('background-color', 'hsla('+h+', '+s+'%, '+l+'%, 1)');	
 	},
 
@@ -69,7 +71,8 @@ app = {
 		var yPercent = app.dial.offset().top / (app.bg.height() - app.halfDial*2);
 
 		app.setDialHands(xPercent, yPercent);
-		app.setBgColorsFromXY(xPercent, yPercent);
+		app.setBgColorFromXY(xPercent, yPercent);
+		app.setAudioFromXY(xPercent, yPercent);
 	},
 
 	setDialHands: function(xP, yP){
@@ -80,8 +83,38 @@ app = {
 		TweenMax.to($('.pointer-y'), 1, {rotation:rotY, transformOrigin:"47% bottom", ease:Back.easeOut});
 	},
 
-	setBgColorsFromXY: function(xP, yP){
-		app.setBgCheckerColors(353-300*xP, 100-yP*100, 50);
+	setBgColorFromXY: function(xP, yP){
+		app.setBgColor(353-300*xP, 100-yP*100, 50);
+	},
+
+	//audio section
+	oscillator: null,
+	gainNode: null,
+	initAudio: function(){
+		var contextClass = window.AudioContext || window.webkitAudioContext;
+		if (contextClass) {
+		  // Web Audio API is available.
+		  var context = new contextClass();
+		} else {
+		  // Web Audio API is not available.
+		  alert('Web Audio API not available')
+		}
+
+		app.oscillator = context.createOscillator();
+		app.gainNode = context.createGainNode();
+		app.gainNode.gain.value = 1;
+		app.oscillator.connect(app.gainNode);
+		app.gainNode.connect(context.destination);
+		app.oscillator.frequency.value = 440;
+		app.oscillator.type = app.oscillator.SINE;
+		app.oscillator.start(0);
+
+	},
+
+	setAudioFromXY: function(xP, yP){
+		app.oscillator.detune.value = (xP - .5) * 1000;
+		app.gainNode.gain.value = 1 - yP;
+
 	}
 
 }
